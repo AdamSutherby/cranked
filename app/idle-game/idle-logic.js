@@ -14,6 +14,7 @@ export default function IdleLogic() {
   const [item2Purchased, setItem2Purchased] = useState(false);
   const [buttonWidth, setButtonWidth] = useState(0);
 
+  // visibility of the achievements window
   const handleCloseAchievements = () => {
     setAchievementsVisible(false);
   };
@@ -22,10 +23,12 @@ export default function IdleLogic() {
     setAchievementsVisible(true);
   };
 
+  // uniform shop button width
   const updateButtonWidth = () => {
     setButtonWidth(Math.floor(window.innerWidth / 10));
   };
 
+    // Click value logic
   useEffect(() => {
     const clickValueInterval = setInterval(() => {
       // Calculate clickValue based on the number of completed achievements
@@ -42,18 +45,17 @@ export default function IdleLogic() {
     };
   }, []);
   
-  // CPS logic
+  // Click Per Second logic
   useEffect(() => {
     const cpsInterval = setInterval(() => {
       setCurrentValue((prev) => prev + cps);
       setTotalValue((prev) => prev + cps);
     }, 1000);
 
-    // Clean up the interval when component is unmounted
     return () => {
       clearInterval(cpsInterval);
     };
-  }, [cps]); // Include cps in the dependency array to ensure the effect runs whenever cps changes
+  }, [cps]);
 
   useEffect(() => {
     // Run this code only on the client side
@@ -68,6 +70,7 @@ export default function IdleLogic() {
     };
   }, []); // Empty dependency array ensures the effect runs once on mount
 
+  // Achievement logic
   useEffect(() => {
     // Check for Achievement 2 completion
     if (totalValue >= 500) {
@@ -88,6 +91,7 @@ export default function IdleLogic() {
     });
   };
 
+    // Shop logic
   const handlePurchase = (item) => {
     if (currentValue >= item.cost && item.visible) {
       item.effect.forEach((effect) => effect(setTotalValue, setCurrentValue, setCps, setAchievementsVisible));
@@ -100,7 +104,7 @@ export default function IdleLogic() {
       alert(`You need at least ${item.cost} total value to purchase ${item.name}!`);
     }
   };
-
+  // Method that handles the click event
   const handleClick = () => {
     setCurrentValue((prev) => prev + clickValue);
     setTotalValue((prev) => prev + clickValue);

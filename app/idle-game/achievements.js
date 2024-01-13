@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './achievements.css'; // Create a CSS file for styling
+import './achievements.css';
 
 const achievementData = [
   {
@@ -22,6 +22,7 @@ const achievementData = [
     description: "Reach 5000 total value.",
     completed: false,
   },
+  // Below are Achievements that still need to be programmed so they can be completed.
   {
     id: 4,
     title: "50K",
@@ -109,6 +110,7 @@ const achievementData = [
   
 ];
 
+// hover over the achievement to see the description method
 const Achievements = ({ isVisible, onClose }) => {
   const [hoveredAchievement, setHoveredAchievement] = useState(null);
 

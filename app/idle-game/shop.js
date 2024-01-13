@@ -13,7 +13,7 @@ const Shop = ({ totalValue, setCurrentValue, setCps }) => {
       item.effect(setCurrentValue, setCps); // Apply the item's effect
       setPurchasedItems((prevItems) => [...prevItems, item.id]);
 
-      // Toggle the visibility of the purchased item
+      // Toggle the visibility of the purchased item, so it can't be purchased again
       shopItems.forEach((shopItem) => {
         if (shopItem.id === item.id) {
           shopItem.visible = false;
