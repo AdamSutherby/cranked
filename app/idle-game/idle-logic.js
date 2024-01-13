@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { shopItems } from './shop-items.js';
 import Achievements, { achievementData } from './achievements.js';
+import defaultSettings from './settings.js';
 
 export default function IdleLogic() {
   const [totalValue, setTotalValue] = useState(0);
@@ -13,6 +14,7 @@ export default function IdleLogic() {
   const [achievementsVisible, setAchievementsVisible] = useState(false);
   const [item2Purchased, setItem2Purchased] = useState(false);
   const [buttonWidth, setButtonWidth] = useState(0);
+  const [settingsVisible, setSettingsVisible] = useState(true);
 
   // visibility of the achievements window
   const handleCloseAchievements = () => {
@@ -22,6 +24,15 @@ export default function IdleLogic() {
   const handleOpenAchievements = () => {
     setAchievementsVisible(true);
   };
+
+  // visibility of the settings window
+  const handleOpenSettings = () => {
+    setSettingsVisible(true);
+  };
+
+  const handleCloseSettings = () => {
+    setSettingsVisible(false);
+  }
 
   // uniform shop button width
   const updateButtonWidth = () => {
@@ -149,14 +160,18 @@ export default function IdleLogic() {
           ))}
         </div>
       )}
-      {item2Purchased && (
-        <div className="absolute top-0 right-0 flex justify-end">
-          <button onClick={handleOpenAchievements} className="bg-blue-500 hover.bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-4">
-            Achievements
+        <div className="absolute top-0 right-0 flex justify-end flex-col">
+          <button onClick={handleOpenSettings} className="bg-blue-500 hover.bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-4">
+            Settings
           </button>
+          {item2Purchased && (
+            <button onClick={handleOpenAchievements} className="bg-blue-500 hover.bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-4">
+              Achievements
+            </button>
+          )}
         </div>
-      )}
-      <Achievements isVisible={achievementsVisible} onClose={handleCloseAchievements} />
-    </div>
-  );
-}
+        <defaultSettings isVisible={settingsVisible} onClose={handleCloseSettings} />
+        <Achievements isVisible={achievementsVisible} onClose={handleCloseAchievements} />
+      </div>
+        );
+      }
