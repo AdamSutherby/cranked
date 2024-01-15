@@ -8,7 +8,7 @@ export default function IdleLogic() {
   const [totalValue, setTotalValue] = useState(0);
   const [currentValue, setCurrentValue] = useState(0);
   const [cps, setCps] = useState(0);
-  const [clickValue, setClickValue] = useState(10);
+  const [clickValue, setClickValue] = useState(1);
   const [shopVisible, setShopVisible] = useState(false);
   const [achievementsVisible, setAchievementsVisible] = useState(false);
   const [item2Purchased, setItem2Purchased] = useState(false);
@@ -22,6 +22,26 @@ export default function IdleLogic() {
     setAchievementsVisible(true);
   };
 
+  const updateButtonWidth = () => {
+    setButtonWidth(Math.floor(window.innerWidth / 10));
+  };
+
+  useEffect(() => {
+    const clickValueInterval = setInterval(() => {
+      // Calculate clickValue based on the number of completed achievements
+      const completedAchievements = achievementData.filter((achievement) => achievement.completed);
+      const clickValueBoost = completedAchievements.length * 5;
+  
+      // Update clickValue with the boosted value, or set it to 1 if the boost is zero
+      setClickValue((prevClickValue) => (clickValueBoost > 0 ? clickValueBoost : 1));
+    }, 100);
+  
+    return () => {
+      clearInterval(clickValueInterval);
+      window.removeEventListener('resize', updateButtonWidth);
+    };
+  }, []);
+  
   // CPS logic
   useEffect(() => {
     const cpsInterval = setInterval(() => {
@@ -37,14 +57,9 @@ export default function IdleLogic() {
 
   useEffect(() => {
     // Run this code only on the client side
-    const updateButtonWidth = () => {
-      setButtonWidth(Math.floor(window.innerWidth / 10));
-    };
-
-    // Initial calculation
     updateButtonWidth();
 
-    // Update buttonWidth when window is resized
+    // Initial calculation
     window.addEventListener('resize', updateButtonWidth);
 
     // Clean up the event listener when the component is unmounted
