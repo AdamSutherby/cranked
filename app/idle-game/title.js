@@ -1,5 +1,5 @@
 export const Title = () => {
-    return <div>
-        <h1>Cranked Idle</h1>
+    return <div className='flex items-start justify-center'>
+        <h1 className='text-2xl m-4'>CRANKED IDLE</h1>
     </div>;
   };
