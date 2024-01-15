@@ -8,12 +8,13 @@ export default function IdleLogic() {
   const [totalValue, setTotalValue] = useState(0);
   const [currentValue, setCurrentValue] = useState(0);
   const [cps, setCps] = useState(0);
-  const [clickValue, setClickValue] = useState(10);
+  const [clickValue, setClickValue] = useState(1);
   const [shopVisible, setShopVisible] = useState(false);
   const [achievementsVisible, setAchievementsVisible] = useState(false);
   const [item2Purchased, setItem2Purchased] = useState(false);
   const [buttonWidth, setButtonWidth] = useState(0);
 
+  // visibility of the achievements window
   const handleCloseAchievements = () => {
     setAchievementsVisible(false);
   };
@@ -22,29 +23,45 @@ export default function IdleLogic() {
     setAchievementsVisible(true);
   };
 
-  // CPS logic
+  // uniform shop button width
+  const updateButtonWidth = () => {
+    setButtonWidth(Math.floor(window.innerWidth / 10));
+  };
+
+    // Click value logic
+  useEffect(() => {
+    const clickValueInterval = setInterval(() => {
+      // Calculate clickValue based on the number of completed achievements
+      const completedAchievements = achievementData.filter((achievement) => achievement.completed);
+      const clickValueBoost = completedAchievements.length * 5;
+  
+      // Update clickValue with the boosted value, or set it to 1 if the boost is zero
+      setClickValue((prevClickValue) => (clickValueBoost > 0 ? clickValueBoost : 1));
+    }, 100);
+  
+    return () => {
+      clearInterval(clickValueInterval);
+      window.removeEventListener('resize', updateButtonWidth);
+    };
+  }, []);
+  
+  // Click Per Second logic
   useEffect(() => {
     const cpsInterval = setInterval(() => {
       setCurrentValue((prev) => prev + cps);
       setTotalValue((prev) => prev + cps);
     }, 1000);
 
-    // Clean up the interval when component is unmounted
     return () => {
       clearInterval(cpsInterval);
     };
-  }, [cps]); // Include cps in the dependency array to ensure the effect runs whenever cps changes
+  }, [cps]);
 
   useEffect(() => {
     // Run this code only on the client side
-    const updateButtonWidth = () => {
-      setButtonWidth(Math.floor(window.innerWidth / 10));
-    };
-
-    // Initial calculation
     updateButtonWidth();
 
-    // Update buttonWidth when window is resized
+    // Initial calculation
     window.addEventListener('resize', updateButtonWidth);
 
     // Clean up the event listener when the component is unmounted
@@ -53,6 +70,7 @@ export default function IdleLogic() {
     };
   }, []); // Empty dependency array ensures the effect runs once on mount
 
+  // Achievement logic
   useEffect(() => {
     // Check for Achievement 2 completion
     if (totalValue >= 500) {
@@ -73,6 +91,7 @@ export default function IdleLogic() {
     });
   };
 
+    // Shop logic
   const handlePurchase = (item) => {
     if (currentValue >= item.cost && item.visible) {
       item.effect.forEach((effect) => effect(setTotalValue, setCurrentValue, setCps, setAchievementsVisible));
@@ -85,7 +104,7 @@ export default function IdleLogic() {
       alert(`You need at least ${item.cost} total value to purchase ${item.name}!`);
     }
   };
-
+  // Method that handles the click event
   const handleClick = () => {
     setCurrentValue((prev) => prev + clickValue);
     setTotalValue((prev) => prev + clickValue);

@@ -34,6 +34,7 @@ export const shopItems = [
       effects.increaseCps(5),
     ],
   },
+  // below are shop items that need to be programmed
   {
     id: 4,
     name: "Fishing",

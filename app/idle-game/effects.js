@@ -1,3 +1,6 @@
+// Desc: Effects for the idle game shop
+
+
 export const decreaseCurrentValue = (amount) => {
     return (setTotalValue, setCurrentValue, setCps) => {
       setCurrentValue((currentValue) => currentValue - amount);

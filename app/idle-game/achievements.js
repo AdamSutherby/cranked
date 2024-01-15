@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './achievements.css'; // Create a CSS file for styling
+import './achievements.css';
 
 const achievementData = [
   {
@@ -21,9 +21,96 @@ const achievementData = [
     title: "5K",
     description: "Reach 5000 total value.",
     completed: false,
+  },
+  // Below are Achievements that still need to be programmed so they can be completed.
+  {
+    id: 4,
+    title: "50K",
+    description: "Reach 50000 total value.",
+    completed: false,
+  },
+  {
+    id: 5,
+    title: "500K",
+    description: "Reach 500000 total value.",
+    completed: false,
+  },
+  {
+    id: 6,
+    title: "5M",
+    description: "Reach 5000000 total value.",
+    completed: false,
+  },
+  {
+    id: 7,
+    title: "Blue Fish",
+    description: "Catch 10 Blue Fish",
+    completed: false,
+  },
+  {
+    id: 8,
+    title: "Red Fish",
+    description: "Catch 100 Red Fish",
+    completed: false,
+  },
+  {
+    id: 9,
+    title: "Green Fish",
+    description: "Catch 1000 Green Fish",
+    completed: false,
+  },
+  {
+    id: 10,
+    title: "Yellow Fish",
+    description: "Catch 10000 Yellow Fish",
+    completed: false,
+  },
+  {
+    id: 11,
+    title: "Purple Fish",
+    description: "Catch 100000 Purple Fish",
+    completed: false,
+  },
+  {
+    id: 12,
+    title: "Line Cook",
+    description: "Cook 1 Meal",
+    completed: false,
+  },
+  {
+    id: 13,
+    title: "Chef",
+    description: "Cook 10 Meals",
+    completed: false,
+  },
+  {
+    id: 14,
+    title: "Chefin",
+    description: "Cook 100 Meals",
+    completed: false,
+  },
+  {
+    id: 15,
+    title: "Treed",
+    description: "Harvest 1 Tree",
+    completed: false,
+  },
+  {
+    id: 16,
+    title: "Jack",
+    description: "Harvest 10 Trees",
+    completed: false,
+  },
+  {
+    id: 17,
+    title: "De forest",
+    description: "Harvest 100 Trees",
+    completed: false,
   }
+  
 ];
 
+// hover over the achievement to see the description method
 const Achievements = ({ isVisible, onClose }) => {
   const [hoveredAchievement, setHoveredAchievement] = useState(null);
 
