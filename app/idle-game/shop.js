@@ -33,8 +33,7 @@ const Shop = ({ totalValue, setCurrentValue, setCps }) => {
     <div>
       <p>Upgrade Shop:</p>
       {visibleShopItems.map((item) => (
-        <div key={item.name}>
-          <p>Name: {item.name}</p>
+        <div key={item.name} className={`w-${buttonWidth} p-4`}>
           <p>Cost: {item.cost} total value</p>
           <button onClick={() => handlePurchase(item)}>Purchase {item.name}</button>
         </div>

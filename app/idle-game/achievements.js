@@ -43,8 +43,8 @@ const achievementData = [
   },
   {
     id: 7,
-    title: "Blue Fish",
-    description: "Catch 10 Blue Fish",
+    title: "Sal good mon",
+    description: "Hit Level 3",
     completed: false,
   },
   {
