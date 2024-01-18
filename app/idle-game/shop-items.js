@@ -43,7 +43,7 @@ export const shopItems = [
     visible: true,
     effect: [
       effects.decreaseCurrentValue(1000),
-      effects.increaseCps(10),
+      (setTotalValue, setCurrentValue, setCps, setFishingVisible) => effects.unlockFeature(setFishingVisible)
     ],
   },
   {
